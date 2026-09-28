@@ -15,7 +15,7 @@ export function AdminSidebar() {
         {items.map((item, index) => {
           const Icon = item.icon;
           return (
-            <button key={item.label} className={`flex w-full items-center gap-3 rounded-md px-3 py-3 text-left text-sm ${index === 0 ? "bg-[#222220] text-white" : "text-[#777777] hover:bg-[#f7f7f5] hover:text-[#1f1f1f]"}`}>
+            <button key={item.label} className={`flex w-full items-center gap-3 rounded-md px-3 py-3 text-left text-sm ${index === 0 ? "bg-[#222220] !text-white" : "text-[#777777] hover:bg-[#f7f7f5] hover:text-[#1f1f1f]"}`}>
               <Icon size={16} />
               {item.label}
             </button>

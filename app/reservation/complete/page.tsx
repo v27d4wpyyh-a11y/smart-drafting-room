@@ -29,7 +29,7 @@ export default async function ReservationCompletePage({
         </p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <LinkButton href="/" variant="secondary">홈으로 돌아가기</LinkButton>
-          <LinkButton href="/my-reservations">내 예약 확인하기</LinkButton>
+          <LinkButton href="/my-reservations" className="!text-white hover:!text-white">내 예약 확인하기</LinkButton>
         </div>
       </section>
     </main>

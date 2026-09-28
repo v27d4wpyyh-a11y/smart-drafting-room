@@ -1,32 +1,32 @@
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { LinkButton } from "@/components/ui/Button";
-import { rooms } from "@/data/mockData";
 
 export default function Home() {
   return (
     <main className="bg-[#f7f5f2]">
       <section className="border-b border-[#e2ddd5] bg-[#f7f5f2]">
-        <div className="mx-auto grid max-w-7xl gap-12 px-5 py-14 lg:grid-cols-[55%_45%] lg:items-center lg:py-20">
+        <div className="mx-auto grid max-w-7xl gap-10 px-5 py-10 sm:py-14 lg:grid-cols-[55%_45%] lg:items-center lg:py-20">
           <div className="max-w-3xl">
-            <div className="mb-8 flex items-center gap-4">
-              <img src="/khu-seal.png" alt="Kyung Hee University seal" className="h-40 w-40 object-contain md:h-60 md:w-60" />
-              <div className="h-28 border-l border-[#d6d0c7] md:h-40" />
-              <div>
-                <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#8f1827]">Kyung Hee University</p>
-                <p className="mt-1 text-sm font-semibold uppercase tracking-[0.12em] text-[#6e6863]">College of Human Ecology</p>
+            <div className="mb-8 flex items-center gap-3 sm:gap-4">
+              <img src="/khu-seal.png" alt="Kyung Hee University seal" className="h-28 w-28 shrink-0 object-contain sm:h-40 sm:w-40 md:h-60 md:w-60" />
+              <div className="h-24 shrink-0 border-l border-[#d6d0c7] sm:h-28 md:h-40" />
+              <div className="min-w-0">
+                <p className="text-[11px] font-bold uppercase leading-5 tracking-[0.12em] text-[#8f1827] sm:text-xs sm:tracking-[0.18em]">Kyung Hee University</p>
+                <p className="mt-1 max-w-44 text-xs font-semibold uppercase leading-5 tracking-[0.08em] text-[#6e6863] sm:max-w-none sm:text-sm sm:tracking-[0.12em]">College of Human Ecology</p>
               </div>
             </div>
 
-            <h1 className="text-4xl font-bold leading-tight text-[#241f1d] md:text-5xl">
+            <h1 className="text-3xl font-bold leading-tight text-[#241f1d] sm:text-4xl md:text-5xl">
               경희대학교 주거환경학과<br />
               제도실 예약 시스템
             </h1>
 
-            <p className="mt-7 max-w-2xl text-3xl font-bold leading-tight text-[#8f1827] md:text-4xl">
-              RIGHT SPACE<br className="sm:hidden" /> FOR THE RIGHT ACTIVITY.
+            <p className="mt-7 max-w-2xl text-2xl font-bold leading-tight text-[#8f1827] sm:text-3xl md:text-4xl">
+              <span className="block">RIGHT SPACE FOR</span>
+              <span className="block">THE RIGHT ACTIVITY.</span>
             </p>
 
-            <p className="mt-6 text-2xl font-semibold leading-relaxed text-[#3a3431]">
+            <p className="mt-6 text-xl font-semibold leading-relaxed text-[#3a3431] sm:text-2xl">
               필요할 때 자유롭게,<br />
               이용할 때는 체계적으로.
             </p>
@@ -69,12 +69,12 @@ export default function Home() {
                 아이디 저장
               </label>
 
-              <button
-                type="button"
-                className="focus-ring h-12 w-full rounded-sm border border-[#8f1827] bg-[#8f1827] px-4 text-sm font-bold text-white transition hover:bg-[#74131f]"
+              <LinkButton
+                href="/spaces"
+                className="h-12 w-full rounded-sm border-[#8f1827] bg-[#8f1827] px-4 text-sm font-bold !text-white transition hover:bg-[#74131f] hover:!text-white"
               >
                 로그인
-              </button>
+              </LinkButton>
 
               <div className="flex items-center justify-center gap-5 text-sm text-[#6e6863]">
                 <a href="#" className="hover:text-[#8f1827]">아이디 찾기</a>
@@ -88,7 +88,7 @@ export default function Home() {
                 <span className="h-px flex-1 bg-[#e5e0d8]" />
               </div>
 
-              <LinkButton href="#space-selection" variant="secondary" className="h-12 w-full rounded-sm border-[#8f1827] text-[#8f1827] hover:border-[#8f1827] hover:bg-[#fff7f8]">
+              <LinkButton href="/spaces" variant="secondary" className="h-auto min-h-12 w-full rounded-sm border-[#8f1827] px-3 py-3 text-center text-[#8f1827] hover:border-[#8f1827] hover:bg-[#fff7f8]">
                 데모 계정으로 체험하기 <ArrowRight size={16} />
               </LinkButton>
 
@@ -97,65 +97,6 @@ export default function Home() {
               </p>
             </div>
           </aside>
-        </div>
-      </section>
-
-      <section id="space-selection" className="mx-auto max-w-7xl px-5 py-14">
-        <div className="mb-8 max-w-3xl">
-          <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#8f1827]">Drafting Room Reservation</p>
-          <h2 className="mt-3 text-3xl font-bold text-[#241f1d]">활동 목적에 맞는 제도실 선택</h2>
-          <p className="mt-3 text-[#6e6863]">개인 작업과 협업 활동을 분리해 제도실 이용을 더 체계적으로 관리합니다.</p>
-        </div>
-        <div className="grid gap-6 lg:grid-cols-2">
-          {rooms.map((room) => {
-            const reserved = room.total - room.available;
-            const utilization = Math.round((reserved / room.total) * 100);
-            const isQuiet = room.zone === "Quiet Zone";
-            const cardTone = isQuiet
-              ? "border-[#cbd8ea] bg-[#f2f6fc]"
-              : "border-[#ead0d4] bg-[#fff4f5]";
-            const accentTone = isQuiet ? "text-[#284f86]" : "text-[#8f1827]";
-            const progressTone = isQuiet ? "bg-[#5f7fac]" : "bg-[#b85b68]";
-            const availabilityTone = isQuiet
-              ? "border-[#dbe5f2] bg-[#f8fbff]"
-              : "border-[#efd9dc] bg-[#fffafa]";
-            return (
-              <article key={room.id} className={`rounded-md border p-6 shadow-sm ${cardTone}`}>
-                <div className="flex flex-col justify-between gap-5 md:flex-row md:items-start">
-                  <div>
-                    <p className={`text-sm font-semibold ${accentTone}`}>{room.name}</p>
-                    <h3 className="mt-2 text-2xl font-bold text-[#241f1d]">{room.zone}</h3>
-                    <p className="mt-4 text-[#3a3431]">{room.description}</p>
-                    <p className="mt-2 text-sm text-[#6e6863]">{room.rules}</p>
-                  </div>
-                  <div className={`min-w-32 rounded-sm border p-4 text-center ${availabilityTone}`}>
-                    <div className={`text-2xl font-bold ${accentTone}`}>{room.available}</div>
-                    <div className="text-xs font-medium text-[#6e6863]">좌석 이용 가능</div>
-                  </div>
-                </div>
-
-                <div className="mt-6">
-                  <div className="mb-2 flex justify-between text-sm">
-                    <span className="font-medium text-[#3a3431]">{room.available} / {room.total} 좌석 이용 가능</span>
-                    <span className="text-[#6e6863]">Reservation Status</span>
-                  </div>
-                  <div className="h-2 bg-white/70">
-                    <div className={`h-2 ${progressTone}`} style={{ width: `${utilization}%` }} />
-                  </div>
-                </div>
-
-                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="flex items-center gap-2 text-sm text-[#6e6863]">
-                    <CheckCircle2 size={16} className={accentTone} />
-                    발표용 데모 예약 가능
-                  </div>
-                  <LinkButton href={`/rooms/${room.id}`} variant="secondary" className="rounded-sm border-[#d8d2c9] hover:border-[#8f1827] hover:text-[#8f1827]">
-                    제도실 보기 <ArrowRight size={16} />
-                  </LinkButton>
-                </div>
-              </article>
-            );
-          })}
         </div>
       </section>
     </main>

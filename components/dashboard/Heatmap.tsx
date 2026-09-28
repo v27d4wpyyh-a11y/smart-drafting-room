@@ -1,9 +1,9 @@
 import type { DailyUsageData } from "@/types";
 
 function tone(value: number) {
-  if (value > 80) return "bg-[#222220] text-white";
-  if (value > 65) return "bg-[#68645d] text-white";
-  if (value > 45) return "bg-[#aaa396] text-white";
+  if (value > 80) return "bg-[#222220] !text-white";
+  if (value > 65) return "bg-[#68645d] !text-white";
+  if (value > 45) return "bg-[#aaa396] !text-white";
   return "bg-[#e4e0d8] text-[#1f1f1f]";
 }
 

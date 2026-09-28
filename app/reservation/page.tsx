@@ -75,7 +75,7 @@ function ReservationContent() {
                       setStartHour(hour);
                       setDuration((current) => Math.min(current, 24 - hour, 4));
                     }}
-                    className={`focus-ring flex h-14 items-center justify-between rounded-md border px-4 text-left text-sm font-semibold ${startHour === hour ? "border-[#222220] bg-[#222220] text-white" : "border-[#d8d5cf] bg-[#f7f7f5]"}`}
+                    className={`focus-ring flex h-14 items-center justify-between rounded-md border px-4 text-left text-sm font-semibold ${startHour === hour ? "border-[#222220] bg-[#222220] !text-white" : "border-[#d8d5cf] bg-[#f7f7f5]"}`}
                   >
                     {formatHour(hour)}
                     {startHour === hour && <Check size={16} />}
@@ -93,7 +93,7 @@ function ReservationContent() {
                       key={item}
                       disabled={disabled}
                       onClick={() => setDuration(item)}
-                      className={`focus-ring flex h-14 items-center justify-between rounded-md border px-4 text-left text-sm font-semibold transition ${selectedDuration === item && !disabled ? "border-[#222220] bg-[#222220] text-white" : "border-[#d8d5cf] bg-[#f7f7f5]"} ${disabled ? "cursor-not-allowed opacity-40" : ""}`}
+                      className={`focus-ring flex h-14 items-center justify-between rounded-md border px-4 text-left text-sm font-semibold transition ${selectedDuration === item && !disabled ? "border-[#222220] bg-[#222220] !text-white" : "border-[#d8d5cf] bg-[#f7f7f5]"} ${disabled ? "cursor-not-allowed opacity-40" : ""}`}
                     >
                       {item}시간
                       {selectedDuration === item && !disabled && <Check size={16} />}

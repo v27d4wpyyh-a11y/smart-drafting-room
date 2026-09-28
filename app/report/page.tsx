@@ -31,7 +31,7 @@ export default function ReportPage() {
           <div className="mb-4 flex flex-col justify-between gap-4 rounded-lg border border-[#e5e2dc] bg-white p-4 shadow-sm md:flex-row md:items-center">
             <div className="flex gap-2">
               {rooms.map((item) => (
-                <button key={item.id} onClick={() => { setRoomId(item.id); setSelectedSeat(null); }} className={`focus-ring rounded-md border px-4 py-2 text-sm font-semibold ${roomId === item.id ? "border-[#222220] bg-[#222220] text-white" : "border-[#d8d5cf] bg-white"}`}>
+                <button key={item.id} onClick={() => { setRoomId(item.id); setSelectedSeat(null); }} className={`focus-ring rounded-md border px-4 py-2 text-sm font-semibold ${roomId === item.id ? "border-[#222220] bg-[#222220] !text-white" : "border-[#d8d5cf] bg-white"}`}>
                   {item.name}
                 </button>
               ))}
