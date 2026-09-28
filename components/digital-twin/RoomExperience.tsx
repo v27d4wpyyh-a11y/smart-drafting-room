@@ -8,9 +8,9 @@ import { SeatMap } from "@/components/digital-twin/SeatMap";
 import { SeatStatusLegend } from "@/components/digital-twin/SeatStatusLegend";
 import { Button } from "@/components/ui/Button";
 import { ZoneBadge } from "@/components/ui/ZoneBadge";
-import type { Room, Seat } from "@/types";
+import type { Outlet, Room, Seat } from "@/types";
 
-export function RoomExperience({ room, seats }: { room: Room; seats: Seat[] }) {
+export function RoomExperience({ room, seats, outlets }: { room: Room; seats: Seat[]; outlets: Outlet[] }) {
   const [selectedSeat, setSelectedSeat] = useState<Seat | null>(null);
   const [view, setView] = useState<"2d" | "3d">("2d");
 
@@ -46,9 +46,9 @@ export function RoomExperience({ room, seats }: { room: Room; seats: Seat[] }) {
         </div>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[1fr_340px]">
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
         {view === "2d" ? (
-          <SeatMap seats={seats} selectedSeat={selectedSeat} onSelect={setSelectedSeat} />
+          <SeatMap seats={seats} outlets={outlets} selectedSeat={selectedSeat} onSelect={setSelectedSeat} />
         ) : (
           <DigitalTwinPreview zone={room.zone} />
         )}

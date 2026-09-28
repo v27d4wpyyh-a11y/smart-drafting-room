@@ -1,4 +1,4 @@
-import type { DailyUsageData, IssueReport, Reservation, Room, Seat, SeatStatus, UsageData } from "@/types";
+import type { DailyUsageData, IssueReport, Outlet, Reservation, Room, Seat, SeatStatus, UsageData } from "@/types";
 
 export const rooms: Room[] = [
   {
@@ -52,6 +52,32 @@ function buildSeats(roomId: "1" | "2", statuses: SeatStatus[]): Seat[] {
 export const seats: Seat[] = [
   ...buildSeats("1", roomOneStatuses),
   ...buildSeats("2", roomTwoStatuses)
+];
+
+function buildOutlets(roomId: "1" | "2"): Outlet[] {
+  const zones: Outlet["zone"][] = ["A-B", "C-D", "E-F"];
+  const sides: Outlet["side"][] = ["좌측", "우측"];
+
+  return zones.flatMap((zone) => sides.map((side) => {
+    const id = `${roomId}-outlet-${zone.toLowerCase()}-${side === "좌측" ? "left" : "right"}`;
+    const isFaulty =
+      (roomId === "1" && zone === "C-D" && side === "우측") ||
+      (roomId === "2" && zone === "E-F" && side === "좌측");
+
+    return {
+      id,
+      roomId,
+      label: `${zone} ${side} 콘센트`,
+      status: isFaulty ? "faulty" : "normal",
+      zone,
+      side
+    };
+  }));
+}
+
+export const outlets: Outlet[] = [
+  ...buildOutlets("1"),
+  ...buildOutlets("2")
 ];
 
 export const reservations: Reservation[] = [

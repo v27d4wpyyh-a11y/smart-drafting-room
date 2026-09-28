@@ -1,24 +1,60 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Send } from "lucide-react";
 import { SeatMap } from "@/components/digital-twin/SeatMap";
 import { SeatStatusLegend } from "@/components/digital-twin/SeatStatusLegend";
 import { Button } from "@/components/ui/Button";
 import { ZoneBadge } from "@/components/ui/ZoneBadge";
-import { rooms, seats } from "@/data/mockData";
-import type { Seat } from "@/types";
+import { outlets, rooms, seats } from "@/data/mockData";
+import type { Outlet, Seat } from "@/types";
 
 const categories = ["콘센트", "조명", "가구/의자", "냉난방", "쓰레기/청결", "소음", "음식물", "장시간 자리점유", "기타"];
 
 export default function ReportPage() {
   const [roomId, setRoomId] = useState<"1" | "2">("1");
   const [selectedSeat, setSelectedSeat] = useState<Seat | null>(null);
+  const [selectedOutlet, setSelectedOutlet] = useState<Outlet | null>(null);
   const [category, setCategory] = useState("콘센트");
   const [detail, setDetail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const room = rooms.find((item) => item.id === roomId) ?? rooms[0];
   const roomSeats = useMemo(() => seats.filter((seat) => seat.roomId === roomId), [roomId]);
+  const roomOutlets = useMemo(() => outlets.filter((outlet) => outlet.roomId === roomId), [roomId]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const queryRoom = params.get("room");
+    const queryLocation = params.get("location");
+
+    if (queryRoom === "1" || queryRoom === "2") {
+      setRoomId(queryRoom);
+    }
+
+    const queryOutlet = outlets.find((outlet) => outlet.id === queryLocation);
+    if (queryOutlet) {
+      setSelectedOutlet(queryOutlet);
+      setSelectedSeat(null);
+      setCategory("콘센트");
+    }
+  }, []);
+
+  const handleRoomChange = (nextRoomId: "1" | "2") => {
+    setRoomId(nextRoomId);
+    setSelectedSeat(null);
+    setSelectedOutlet(null);
+  };
+
+  const handleSeatSelect = (seat: Seat) => {
+    setSelectedSeat(seat);
+    setSelectedOutlet(null);
+  };
+
+  const handleOutletSelect = (outlet: Outlet) => {
+    setSelectedOutlet(outlet);
+    setSelectedSeat(null);
+    setCategory("콘센트");
+  };
 
   return (
     <main className="mx-auto max-w-7xl px-5 py-10">
@@ -31,20 +67,30 @@ export default function ReportPage() {
           <div className="mb-4 flex flex-col justify-between gap-4 rounded-lg border border-[#e5e2dc] bg-white p-4 shadow-sm md:flex-row md:items-center">
             <div className="flex gap-2">
               {rooms.map((item) => (
-                <button key={item.id} onClick={() => { setRoomId(item.id); setSelectedSeat(null); }} className={`focus-ring rounded-md border px-4 py-2 text-sm font-semibold ${roomId === item.id ? "border-[#222220] bg-[#222220] !text-white" : "border-[#d8d5cf] bg-white"}`}>
+                <button key={item.id} onClick={() => handleRoomChange(item.id)} className={`focus-ring rounded-md border px-4 py-2 text-sm font-semibold ${roomId === item.id ? "border-[#222220] bg-[#222220] !text-white" : "border-[#d8d5cf] bg-white"}`}>
                   {item.name}
                 </button>
               ))}
             </div>
             <SeatStatusLegend />
           </div>
-          <SeatMap seats={roomSeats} selectedSeat={selectedSeat} onSelect={setSelectedSeat} />
+          <SeatMap
+            seats={roomSeats}
+            outlets={roomOutlets}
+            selectedSeat={selectedSeat}
+            selectedOutlet={selectedOutlet}
+            onSelect={handleSeatSelect}
+            onSelectOutlet={handleOutletSelect}
+          />
         </section>
         <aside className="rounded-lg border border-[#e5e2dc] bg-white p-6 shadow-sm">
           <div className="mb-5 flex items-start justify-between">
             <div>
               <p className="text-sm text-[#777777]">Selected Location</p>
-              <h2 className="mt-1 text-2xl font-semibold">{selectedSeat?.label ?? "Area not selected"}</h2>
+              <h2 className="mt-1 text-2xl font-semibold">{selectedSeat?.label ?? selectedOutlet?.label ?? "Area not selected"}</h2>
+              {selectedOutlet?.status === "faulty" && (
+                <p className="mt-2 text-sm font-semibold text-[#8a5d00]">고장 표시된 콘센트</p>
+              )}
             </div>
             <ZoneBadge zone={room.zone} />
           </div>
