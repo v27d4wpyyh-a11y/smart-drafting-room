@@ -20,10 +20,13 @@ export default async function ReservationCompletePage({
         <h1 className="mt-6 text-3xl font-semibold">예약이 완료되었습니다.</h1>
         <div className="mx-auto mt-8 max-w-md divide-y divide-[#e5e2dc] rounded-lg border border-[#e5e2dc] text-left">
           <Info label="제도실" value={`${room.name} (${room.zone.toUpperCase()})`} />
-          <Info label="좌석" value={params.seat ?? "A-12"} />
+          <Info label="좌석" value={params.seat ?? "A-01"} />
           <Info label="이용 날짜" value={formattedDate} />
-          <Info label="이용 시간" value={params.time ?? "16:00-20:00"} />
+          <Info label="이용 시간" value={params.time ?? "15:00-16:00"} />
         </div>
+        <p className="mx-auto mt-5 max-w-md rounded-md border border-[#e5e2dc] bg-[#f7f7f5] p-4 text-left text-sm leading-6 text-[#777777]">
+          최대 4시간 이용 후 계속 사용하려면 책상에 부착된 QR을 스캔해 재예약해 주세요.
+        </p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <LinkButton href="/" variant="secondary">홈으로 돌아가기</LinkButton>
           <LinkButton href="/my-reservations">내 예약 확인하기</LinkButton>

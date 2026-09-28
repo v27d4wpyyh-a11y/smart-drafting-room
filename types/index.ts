@@ -16,7 +16,7 @@ export interface Seat {
   roomId: Room["id"];
   label: string;
   status: SeatStatus;
-  row: "A" | "B" | "C";
+  row: string;
 }
 
 export interface Reservation {

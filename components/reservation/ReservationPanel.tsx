@@ -27,7 +27,7 @@ export function ReservationPanel({ room, seat }: { room: Room; seat?: Seat | nul
       <div className="space-y-4 border-y border-[#e5e2dc] py-5 text-sm">
         <p className="flex items-center gap-2"><MapPin size={16} /> {room.name}</p>
         <p className="flex items-center gap-2"><CalendarDays size={16} /> Today</p>
-        <p className="flex items-center gap-2"><Clock size={16} /> 14:00-20:00</p>
+        <p className="flex items-center gap-2"><Clock size={16} /> 15:00-24:00</p>
       </div>
       <p className="mt-5 text-sm font-semibold text-[#43624c]">Available</p>
       <LinkButton href={`/reservation?room=${room.id}&seat=${seat.label}`} className="mt-5 w-full">

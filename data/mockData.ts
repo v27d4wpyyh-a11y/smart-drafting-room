@@ -33,12 +33,12 @@ const roomTwoStatuses: SeatStatus[] = [
   "available", "reserved", "reserved", "available", "reserved", "reserved", "available", "unavailable", "reserved", "reserved"
 ];
 
-const rowStarts = { A: 0, B: 12, C: 22 };
+const rowLabels = ["A", "B", "C", "D", "E", "F"];
 
 function buildSeats(roomId: "1" | "2", statuses: SeatStatus[]): Seat[] {
   return statuses.map((status, index) => {
-    const row = index < 12 ? "A" : index < 22 ? "B" : "C";
-    const number = index - rowStarts[row] + 1;
+    const row = rowLabels[Math.floor(index / 5)];
+    const number = (index % 5) + 1;
     return {
       id: `${row}-${String(number).padStart(2, "0")}`,
       roomId,
@@ -55,16 +55,16 @@ export const seats: Seat[] = [
 ];
 
 export const reservations: Reservation[] = [
-  { id: "R-1024", roomId: "1", zone: "Quiet Zone", seatId: "A-12", date: "2026-10-14", time: "16:00-20:00", status: "upcoming" },
-  { id: "R-1025", roomId: "2", zone: "Creative Zone", seatId: "B-05", date: "2026-10-16", time: "12:00-16:00", status: "upcoming" },
-  { id: "R-0998", roomId: "1", zone: "Quiet Zone", seatId: "C-03", date: "2026-09-21", time: "08:00-12:00", status: "past" }
+  { id: "R-1024", roomId: "1", zone: "Quiet Zone", seatId: "D-02", date: "2026-10-14", time: "16:00-17:00", status: "upcoming" },
+  { id: "R-1025", roomId: "2", zone: "Creative Zone", seatId: "B-05", date: "2026-10-16", time: "19:00-20:00", status: "upcoming" },
+  { id: "R-0998", roomId: "1", zone: "Quiet Zone", seatId: "C-03", date: "2026-09-21", time: "15:00-16:00", status: "past" }
 ];
 
 export const issueReports: IssueReport[] = [
-  { id: "I-01", roomId: "1", seatId: "A-12", category: "소음", detail: "집중 구역에서 대화가 길게 이어짐", count: 8 },
+  { id: "I-01", roomId: "1", seatId: "D-02", category: "소음", detail: "집중 구역에서 대화가 길게 이어짐", count: 8 },
   { id: "I-02", roomId: "2", seatId: "B-05", category: "쓰레기/청결", detail: "모형작업 후 잔여물 방치", count: 6 },
   { id: "I-03", roomId: "1", seatId: "C-03", category: "장시간 자리점유", detail: "짐만 놓고 장시간 부재", count: 5 },
-  { id: "I-04", roomId: "1", seatId: "A-08", category: "콘센트", detail: "콘센트 접촉 불량", count: 5 }
+  { id: "I-04", roomId: "1", seatId: "B-03", category: "콘센트", detail: "콘센트 접촉 불량", count: 5 }
 ];
 
 export const hourlyUsage: UsageData[] = [

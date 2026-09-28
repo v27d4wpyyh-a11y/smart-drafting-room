@@ -32,7 +32,7 @@ export function RoomExperience({ room, seats }: { room: Room; seats: Seat[] }) {
             <div className="text-xs text-[#777777]">Total Seats</div>
           </div>
           <div>
-            <div className="text-2xl font-semibold">14-20</div>
+            <div className="text-2xl font-semibold">15-24</div>
             <div className="text-xs text-[#777777]">Today</div>
           </div>
         </div>
