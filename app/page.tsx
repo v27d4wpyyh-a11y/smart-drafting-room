@@ -7,15 +7,6 @@ export default function Home() {
       <section className="border-b border-[#e2ddd5] bg-[#f7f5f2]">
         <div className="mx-auto grid max-w-7xl gap-10 px-5 py-10 sm:py-14 lg:grid-cols-[55%_45%] lg:items-center lg:py-20">
           <div className="max-w-3xl">
-            <div className="mb-8 flex items-center gap-3 sm:gap-4">
-              <img src="/khu-seal.png" alt="Kyung Hee University seal" className="h-28 w-28 shrink-0 object-contain sm:h-40 sm:w-40 md:h-60 md:w-60" />
-              <div className="h-24 shrink-0 border-l border-[#d6d0c7] sm:h-28 md:h-40" />
-              <div className="min-w-0">
-                <p className="text-[11px] font-bold uppercase leading-5 tracking-[0.12em] text-[#8f1827] sm:text-xs sm:tracking-[0.18em]">Kyung Hee University</p>
-                <p className="mt-1 max-w-44 text-xs font-semibold uppercase leading-5 tracking-[0.08em] text-[#6e6863] sm:max-w-none sm:text-sm sm:tracking-[0.12em]">College of Human Ecology</p>
-              </div>
-            </div>
-
             <h1 className="text-3xl font-bold leading-tight text-[#241f1d] sm:text-4xl md:text-5xl">
               경희대학교 주거환경학과<br />
               제도실 예약 시스템
